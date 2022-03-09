@@ -8,5 +8,5 @@
 import Combine
 
 public protocol CharacterListUseCaseProtocol {
-    func sink(receiveResponse: @escaping (CharacterListResponse) -> Void)
+    func published(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, Error>
 }
