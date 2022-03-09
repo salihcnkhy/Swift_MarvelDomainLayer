@@ -7,76 +7,76 @@
 
 import Foundation
 // MARK: - MarvelCharacterListResponse
-public struct MarvelCharacterListResponse: Codable {
+public struct MarvelCharacterListResponse: Decodable {
     let code: Int
     let status, copyright, attributionText, attributionHTML: String
     let etag: String
-    let data: DataClass
+    let data: MarvelCharacterDataListResponse
 }
 
 // MARK: - DataClass
-public struct DataClass: Codable {
+public struct MarvelCharacterDataListResponse: Decodable {
     let offset, limit, total, count: Int
-    let results: [Result]
+    let results: [MarvelCharacterDataResponse]
 }
 
 // MARK: - Result
-public struct Result: Codable {
+public struct MarvelCharacterDataResponse: Decodable {
     let id: Int
-    let name, resultDescription, modified: String
-    let thumbnail: Thumbnail
+    let name, description, modified: String
+    let thumbnail: CharacterThumbnailResponse
     let resourceURI: String
-    let comics, series: Comics
-    let stories: Stories
-    let events: Comics
-    let urls: [URLElement]
+    let comics, series: ComicListResponse
+    let stories: StoryListResponse
+    let events: ComicListResponse
+    let urls: [CharacterURLElementResponse]
     
     enum CodingKeys: String, CodingKey {
         case id, name
-        case resultDescription = "description"
+        case description
         case modified, thumbnail, resourceURI, comics, series, stories, events, urls
     }
 }
 
 // MARK: - Comics
-public struct Comics: Codable {
+public struct ComicListResponse: Decodable {
     let available: Int
     let collectionURI: String
-    let items: [ComicsItem]
+    let items: [ComicItemResponse]
     let returned: Int
 }
 
 // MARK: - ComicsItem
-public struct ComicsItem: Codable {
+public struct ComicItemResponse: Decodable {
     let resourceURI: String
     let name: String
 }
 
 // MARK: - Stories
-public struct Stories: Codable {
+public struct StoryListResponse: Decodable {
     let available: Int
     let collectionURI: String
-    let items: [StoriesItem]
+    let items: [StoryItemResponse]
     let returned: Int
 }
 
 // MARK: - StoriesItem
-public struct StoriesItem: Codable {
+public struct StoryItemResponse: Decodable {
     let resourceURI: String
     let name: String
-    let type: ItemType
+    let type: StoryItemTypeResponse
 }
 
-public enum ItemType: String, Codable {
-    case cover = "cover"
+public enum StoryItemTypeResponse: String, Decodable {
+    case cover
     case empty = ""
-    case interiorStory = "interiorStory"
+    case interiorStory
 }
 
 // MARK: - Thumbnail
-public struct Thumbnail: Codable {
+public struct CharacterThumbnailResponse: Decodable {
     let path: String
-    let thumbnailExtension: Extension
+    let thumbnailExtension: CharacterThumbnailExtensionResponse
     
     enum CodingKeys: String, CodingKey {
         case path
@@ -84,19 +84,19 @@ public struct Thumbnail: Codable {
     }
 }
 
-public enum Extension: String, Codable {
-    case gif = "gif"
-    case jpg = "jpg"
+public enum CharacterThumbnailExtensionResponse: String, Decodable {
+    case gif
+    case jpg
 }
 
 // MARK: - URLElement
-public struct URLElement: Codable {
-    let type: URLType
+public struct CharacterURLElementResponse: Decodable {
+    let type: CharacterURLTypeResponse
     let url: String
 }
 
-public enum URLType: String, Codable {
-    case comiclink = "comiclink"
-    case detail = "detail"
-    case wiki = "wiki"
+public enum CharacterURLTypeResponse: String, Decodable {
+    case comiclink
+    case detail
+    case wiki
 }
