@@ -6,5 +6,13 @@
 //
 
 public struct CharacterListRequest: Encodable {
-    public init() { }
+    public init(offset: Int, limit: Int, nameStartsWith: String) {
+        self.offset = offset
+        self.limit = limit
+        self.nameStartsWith = nameStartsWith
+    }
+    
+    public let offset: Int
+    public let limit: Int
+    public let nameStartsWith: String
 }
