@@ -18,4 +18,16 @@ public struct MarvelServerErrorResponse: ServerErrorProtocol {
         self.code = ""
         self.message = ""
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case code
+        case message
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        code = (try? container.decode(String.self, forKey: .code)) ?? "Decode Error"
+        message = (try? container.decode(String.self, forKey: .message)) ?? "Decode Error"
+    }
 }
