@@ -6,87 +6,97 @@
 //
 
 import Foundation
-
 // MARK: - MarvelCharacterListResponse
-public struct MarvelCharacterListResponse: Decodable {
-    let code: Int?
-    let status, copyright, attributionText, attributionHTML: String?
-    let etag: String?
-    let data: MarvelCharacterListDataResponse?
+public struct MarvelCharacterListResponse: Codable {
+    let code: Int
+    let status, copyright, attributionText, attributionHTML: String
+    let etag: String
+    let data: DataClass
 }
 
-// MARK: - MarvelCharacterListDataResponse
-public struct MarvelCharacterListDataResponse: Decodable {
-    let offset, limit, total, count: Int?
-    let results: [MarvelCharacterResponse]?
+// MARK: - DataClass
+public struct DataClass: Codable {
+    let offset, limit, total, count: Int
+    let results: [Result]
 }
 
-// MARK: - MarvelCharacterResponse
-public struct MarvelCharacterResponse: Decodable {
-    let id: Int?
-    let name, resultDescription, modified: String?
-    let thumbnail: ThumbnailResponse?
-    let resourceURI: String?
-    let comics, series: ComicListResponse?
-    let stories: StoryListResponse?
-    let events: ComicListResponse?
-    let urls: [CharacterURLElementResponse]?
+// MARK: - Result
+public struct Result: Codable {
+    let id: Int
+    let name, resultDescription, modified: String
+    let thumbnail: Thumbnail
+    let resourceURI: String
+    let comics, series: Comics
+    let stories: Stories
+    let events: Comics
+    let urls: [URLElement]
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case resultDescription = "description"
+        case modified, thumbnail, resourceURI, comics, series, stories, events, urls
+    }
 }
 
-// MARK: - ComicListResponse
-public struct ComicListResponse: Decodable {
-    let available: Int?
-    let collectionURI: String?
-    let items: [ComicItemResponse]?
-    let returned: Int?
+// MARK: - Comics
+public struct Comics: Codable {
+    let available: Int
+    let collectionURI: String
+    let items: [ComicsItem]
+    let returned: Int
 }
 
-// MARK: - ComicItemResponse
-public struct ComicItemResponse: Decodable{
-    let resourceURI: String?
-    let name: String?
+// MARK: - ComicsItem
+public struct ComicsItem: Codable {
+    let resourceURI: String
+    let name: String
 }
 
-// MARK: - StoryListResponse
-public struct StoryListResponse: Decodable {
-    let available: Int?
-    let collectionURI: String?
-    let items: [StoryItemResponse]?
-    let returned: Int?
+// MARK: - Stories
+public struct Stories: Codable {
+    let available: Int
+    let collectionURI: String
+    let items: [StoriesItem]
+    let returned: Int
 }
 
-// MARK: - StoryItemResponse
-public struct StoryItemResponse: Decodable {
-    let resourceURI: String?
-    let name: String?
-    let type: StoryItemTypeResponse?
+// MARK: - StoriesItem
+public struct StoriesItem: Codable {
+    let resourceURI: String
+    let name: String
+    let type: ItemType
 }
 
-public enum StoryItemTypeResponse: Decodable {
-    case cover
-    case empty
-    case interiorStory
+public enum ItemType: String, Codable {
+    case cover = "cover"
+    case empty = ""
+    case interiorStory = "interiorStory"
 }
 
-// MARK: - ThumbnailResponse
-public struct ThumbnailResponse: Decodable {
-    let path: String?
-    let thumbnailExtension: ThumbnailExtensionResponse?
+// MARK: - Thumbnail
+public struct Thumbnail: Codable {
+    let path: String
+    let thumbnailExtension: Extension
+    
+    enum CodingKeys: String, CodingKey {
+        case path
+        case thumbnailExtension = "extension"
+    }
 }
 
-public enum ThumbnailExtensionResponse: Decodable {
-    case gif
-    case jpg
+public enum Extension: String, Codable {
+    case gif = "gif"
+    case jpg = "jpg"
 }
 
-// MARK: - CharacterURLElementResponse
-public struct CharacterURLElementResponse: Decodable {
-    let type: CharacterURLElementTypeResponse?
-    let url: String?
+// MARK: - URLElement
+public struct URLElement: Codable {
+    let type: URLType
+    let url: String
 }
 
-public enum CharacterURLElementTypeResponse: Decodable {
-    case comiclink
-    case detail
-    case wiki
+public enum URLType: String, Codable {
+    case comiclink = "comiclink"
+    case detail = "detail"
+    case wiki = "wiki"
 }
