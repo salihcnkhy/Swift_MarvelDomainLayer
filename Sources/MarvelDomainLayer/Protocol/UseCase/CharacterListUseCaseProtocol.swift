@@ -8,5 +8,5 @@
 import Combine
 
 public protocol CharacterListUseCaseProtocol {
-    func published(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, Error>
+    func publish(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, MarvelServerErrorResponse>
 }

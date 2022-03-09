@@ -8,5 +8,5 @@
 import Combine
 
 public protocol CharacterRepositoryProtocol {
-    func getCharacterList(with request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, Error>
+    func getCharacterList(with request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, MarvelServerErrorResponse>
 }

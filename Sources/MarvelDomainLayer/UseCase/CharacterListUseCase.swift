@@ -8,13 +8,13 @@
 import DomainLayerBase
 import Combine
 
-public final class CharacterListUseCasePublisher: UseCasePublisher<CharacterListRequest, CharacterListResponse, Error, CharacterRepositoryProtocol>, CharacterListUseCaseProtocol {
+public final class CharacterListUseCasePublisher: UseCasePublisher<CharacterListRequest, CharacterListResponse, MarvelServerErrorResponse, CharacterRepositoryProtocol>, CharacterListUseCaseProtocol {
     
-    public func published(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, Error> {
+    public func publish(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, MarvelServerErrorResponse> {
         self.setRequest(request).eraseToAnyPublisher()
     }
     
-    public override func createAnyPublisher(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, Error> {
+    public override func createAnyPublisher(request: CharacterListRequest) -> AnyPublisher<CharacterListResponse, MarvelServerErrorResponse> {
         repository.getCharacterList(with: request)
     }
 }
