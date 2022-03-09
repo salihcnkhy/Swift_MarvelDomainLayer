@@ -10,17 +10,20 @@ import NetworkEntityLayer
 
 public struct MarvelServerErrorResponse: ServerErrorProtocol {
     public var description: String?
-    public let code: String
-    public let message: String
+    public let code: Int
+    public let message: String?
+    public let status: String?
     
     public init(description: String?) {
         self.description = description
-        self.code = ""
+        self.code = 0
         self.message = ""
+        self.status = ""
     }
     
     enum CodingKeys: String, CodingKey {
         case code
         case message
+        case status
     }
 }
