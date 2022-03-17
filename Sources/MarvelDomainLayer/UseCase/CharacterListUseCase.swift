@@ -8,7 +8,7 @@
 import DomainLayerBase
 import Combine
 
-public final class CharacterListUseCasePublisher: UseCasePublisher<CharacterListRequest, MarvelCharacterListResponse, MarvelServerErrorResponse, CharacterRepositoryProtocol>, CharacterListUseCaseProtocol {
+public final class CharacterListUseCase: UseCasePublisher<CharacterListRequest, MarvelCharacterListResponse, MarvelServerErrorResponse, CharacterRepositoryProtocol>, CharacterListUseCaseProtocol {
     
     public func publish(request: CharacterListRequest) -> AnyPublisher<MarvelCharacterListResponse, MarvelServerErrorResponse> {
         self.setRequest(request).eraseToAnyPublisher()
