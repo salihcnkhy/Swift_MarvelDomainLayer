@@ -10,6 +10,7 @@ public struct CharacterListRequest: Encodable {
         self.offset = offset
         self.limit = limit
         self.nameStartsWith = nameStartsWith
+        print(nameStartsWith)
     }
     
     public let offset: Int
